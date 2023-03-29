@@ -17,10 +17,8 @@ def map():
             "cat1": "대분류",
             "cat2": "소분류",
         }, axis=1).iloc[:,0:3]
-
-    m_location = st.session_state.get('location', center)
     m = folium.Map(
-        location= m_location,
+        location=center,
         min_zoom=17,
         max_zoom=18,
         zoom_start=17,
@@ -38,7 +36,7 @@ def map():
             "😉 메뉴 추천 받기",
             on_click=get_recommend)
     st.subheader("🏬 다른 식당들...?")
-    ds = data.sample(frac=1)
+    ds = data.copy()
     ds.index = range(1, len(data) + 1)
     st.dataframe(
         ds, 

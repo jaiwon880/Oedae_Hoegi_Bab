@@ -3,4 +3,4 @@ import streamlit as st
 
 @st.cache_data
 def get_place():
-    return pd.read_csv('data/place.csv')
+    return pd.read_csv('data/place.csv').sample(frac=1)
