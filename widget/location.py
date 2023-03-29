@@ -10,7 +10,7 @@ from data import place
 center = (37.4682,126.8860)
 
 def map():
-    p = place.get_place()
+    p = place.get_place(st.session_state.get('store',''))
     data = p.rename({
             "name": "식당명",
             "address": "도로명주소",
