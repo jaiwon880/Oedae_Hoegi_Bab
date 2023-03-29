@@ -78,10 +78,10 @@ def add_cluster_marker(m):
                 <p><b>직경거리</b> : {dist}m</p>
                 '''
         if not str(row.naver) == 'nan':
-            nv = f"https://m.place.naver.com/restaurant/{row.naver}"
+            nv = f"https://m.place.naver.com/restaurant/{str(int(row.naver))}"
             html += f"<p><b>네이버플레이스</b> : <a href={nv} target='blank'>🔗</a></p>"
         if not str(row.kakao) == 'nan':
-            kk = f"https://place.map.kakao.com/{row.kakao}"
+            kk = f"https://place.map.kakao.com/{str(int(row.kakao))}"
             html += f"<p><b>카카오맵</b> : <a href={kk} target='blank'>🔗</a></p>"
         folium.Marker(
             (row.lat, row.long),
