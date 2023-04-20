@@ -63,70 +63,34 @@ def add_center_marker(m):
 
 
 def get_recommend():
-    if 'location' not in st.session_state: # 가게 위치가 없으면 초기 center 위치를 사용
-        center = (37.566345, 126.977893)
-        st.session_state['location'] = center
+    if 'center' not in st.session_state:
+        center = (37.566345, 126.977893) # 초기 center 위치
+        st.session_state['center'] = center
     else:
         center = st.session_state['location']
-    
     p = place.get_place()
     idx = np.random.randint(len(p))
     item = p.iloc[idx]
-    st.session_state['location'] = item['name']
-    location = (item.lat, item.long)
-    
+    st.session_state['store'] = item['name']
+    st.session_state['location'] = (item.lat, item.long)
+    center = st.session_state['location'] # Update the center variable
     m = folium.Map(
-        location=center,
+        location=st.session_state['location'],
         min_zoom=16,
         max_zoom=30,
         zoom_start=16,
         zoom_control=True,
     )
     folium.Marker(
-        location,
+        st.session_state['location'],
         icon=folium.Icon(
             icon='cutlery',
             color='orange'
         ),
-        popup=item['name']
+        popup=st.session_state['store']
     ).add_to(m)
-    
-    m.fit_bounds([center, location])
+    m.fit_bounds([center, st.session_state['location']])
     st_folium(m, width=800, height=500)
-    st.session_state['location'] = location # 가게 위치를 session state에 저장
-
-
-
-
-# def get_recommend():
-#     if 'center' not in st.session_state:
-#         center = (37.566345, 126.977893) # 초기 center 위치
-#         st.session_state['center'] = center
-#     else:
-#         center = st.session_state['location']
-#     p = place.get_place()
-#     idx = np.random.randint(len(p))
-#     item = p.iloc[idx]
-#     st.session_state['store'] = item['name']
-#     st.session_state['location'] = (item.lat, item.long)
-#     center = st.session_state['location'] # Update the center variable
-#     m = folium.Map(
-#         location=st.session_state['location'],
-#         min_zoom=16,
-#         max_zoom=30,
-#         zoom_start=16,
-#         zoom_control=True,
-#     )
-#     folium.Marker(
-#         st.session_state['location'],
-#         icon=folium.Icon(
-#             icon='cutlery',
-#             color='orange'
-#         ),
-#         popup=st.session_state['store']
-#     ).add_to(m)
-#     m.fit_bounds([center, st.session_state['location']])
-#     st_folium(m, width=800, height=500)
 
 
 
