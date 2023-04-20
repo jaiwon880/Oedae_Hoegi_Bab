@@ -6,6 +6,8 @@ from geopy import distance
 import numpy as np
 from data import place
 
+center = (37.6001,127.0602)
+
 def map():
     p = place.get_place(st.session_state.get('store',''))
     data = p.rename({
@@ -45,49 +47,6 @@ def map():
         use_container_width=True
     )
 
-def add_center_marker(m):
-    folium.Marker(
-        center,
-        icon=folium.Icon(
-            icon='fire',
-            color='red'
-        ),
-        popup=folium.Popup(
-            html="재원이의 스윗홈🍭",
-            max_width=200,
-        ),
-        tooltip="우하하. 재개발 다 되면 여기 내집 예정ㅋ"
-    ).add_to(m)
-
-def get_recommend():
-    if 'center' not in st.session_state:
-        center = (37.566345, 126.977893) # 초기 center 위치
-        st.session_state['center'] = center
-    else:
-        center = st.session_state['center']
-    p = place.get_place()
-    idx = np.random.randint(len(p))
-    item = p.iloc[idx]
-    st.session_state['store'] = item['name']
-    st.session_state['location'] = (item.lat, item.long)
-    center = st.session_state['location'] # Update the center variable
-    m = folium.Map(
-        location=st.session_state['location'],
-        min_zoom=16,
-        max_zoom=30,
-        zoom_start=16,
-        zoom_control=True,
-    )
-    folium.Marker(
-        st.session_state['location'],
-        icon=folium.Icon(
-            icon='cutlery',
-            color='orange'
-        ),
-        popup=st.session_state['store']
-    ).add_to(m)
-    m.fit_bounds([center, st.session_state['location']])
-    st_folium(m, width=800, height=500)
 def add_center_marker(m):
     folium.Marker(
         center,
