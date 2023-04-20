@@ -65,6 +65,23 @@ def get_recommend():
     item = p.iloc[idx]
     st.session_state['store'] = item['name']
     st.session_state['location'] = (item.lat, item.long)
+    m = folium.Map(
+    location=center,
+    min_zoom=16,
+    max_zoom=30,
+    zoom_start=16,
+    zoom_control=True,
+    )
+    folium.Marker(
+        st.session_state['location'],
+        icon=folium.Icon(
+            icon='cutlery',
+            color='orange'
+        ),
+        popup=st.session_state['store']
+    ).add_to(m)
+    m.fit_bounds([center, st.session_state['location']])
+    st_folium(m, width=800, height=400)
 
 def add_cluster_marker(m):
     cluster = MarkerCluster().add_to(m)
@@ -94,3 +111,22 @@ def add_cluster_marker(m):
             ),
             tooltip=row['name']
         ).add_to(cluster)
+
+def move_to_location():
+    location = st.session_state.get('location')
+    if location is not None:
+        m = folium.Map(
+            location=location,
+            min_zoom=16,
+            max_zoom=30,
+            zoom_start=16,
+            zoom_control=True,
+        )
+        add_center_marker(m)
+        add_cluster_marker(m)
+        st_folium(m, width=800, height=400)
+    else:
+        st.warning("가게 추천을 받아주세요!")
+
+if st.button("🗺️ 이 가게 위치 보기"):
+    move_to_location()
