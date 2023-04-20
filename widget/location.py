@@ -74,7 +74,7 @@ def get_recommend():
     st.session_state['location'] = (item.lat, item.long)
     center = st.session_state['location'] # Update the center variable
     m = folium.Map(
-        location=center,
+        location=st.session_state['location'],
         min_zoom=16,
         max_zoom=30,
         zoom_start=16,
@@ -121,25 +121,3 @@ def add_cluster_marker(m):
             ),
             tooltip=row['name']
         ).add_to(cluster)
-
-
-def move_to_center():
-    center = st.session_state.get('center', (37.6001,127.0602))
-    m = folium.Map(
-        location=center,
-        min_zoom=16,
-        max_zoom=30,
-        zoom_start=16,
-        zoom_control=True,
-    )
-    add_center_marker(m)
-    add_cluster_marker(m)
-    st_folium(m, width=800, height=400)
-
-if 'location' in st.session_state:
-    st.write(f"오늘은 **{st.session_state['store']}** 어떠세요?")
-    if st.button("😉 메뉴 다시 추천 받기", on_click=get_recommend):
-        move_to_center()
-else:
-    if st.button("😉 메뉴 추천 받기", on_click=get_recommend):
-        move_to_center()
