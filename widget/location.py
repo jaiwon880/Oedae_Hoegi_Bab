@@ -84,7 +84,7 @@ def get_recommend():
         zoom_control=True,
     )
     folium.Marker(
-        store_location,
+        location,
         icon=folium.Icon(
             icon='cutlery',
             color='orange'
@@ -92,7 +92,7 @@ def get_recommend():
         popup=item['name']
     ).add_to(m)
     
-    m.fit_bounds([center, store_location])
+    m.fit_bounds([center, location])
     st_folium(m, width=800, height=500)
 
 
