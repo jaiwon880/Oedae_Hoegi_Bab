@@ -15,7 +15,7 @@ def app():
     ''')
 
     with st.sidebar:
-    choice = option_menu("Menu", ["홈", "검색", "후기"],
+        choice = option_menu("Menu", ["홈", "검색", "후기"],
                          icons=['house', 'search', 'pencil-square'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
