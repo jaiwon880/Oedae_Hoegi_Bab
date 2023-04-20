@@ -2,6 +2,10 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from widget import location
 
+# 후기 페이지에 넣을 거
+# from streamlit_disqus import st_disqus
+# st_disqus("streamlit-disqus-demo")
+
 
 def side_bar():
     with st.sidebar:
