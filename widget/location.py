@@ -46,8 +46,9 @@ def map(center=(37.6001, 127.0602)):
         height=300,
         use_container_width=True
     )
+    
 
-def add_center_marker(m):
+def add_center_marker(m, center):
     folium.Marker(
         center,
         icon=folium.Icon(
@@ -61,12 +62,7 @@ def add_center_marker(m):
         tooltip="우하하. 재개발 다 되면 여기 내집 예정ㅋ"
     ).add_to(m)
 
-def get_recommend():
-    if 'center' not in st.session_state:
-        center = (37.566345, 126.977893) # 초기 center 위치
-        st.session_state['center'] = center
-    else:
-        center = st.session_state['location']
+def get_recommend(center):
     p = place.get_place()
     idx = np.random.randint(len(p))
     item = p.iloc[idx]
@@ -90,8 +86,7 @@ def get_recommend():
     ).add_to(m)
     m.fit_bounds([st.session_state['center'], center])
     st_folium(m, width=800, height=400)
-    st.session_state['location'] = center # Update the location variable
-
+    st.session_state['center'] = center
 
 
 def add_cluster_marker(m):
