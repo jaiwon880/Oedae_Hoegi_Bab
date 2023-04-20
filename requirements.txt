@@ -2,3 +2,4 @@ folium
 streamlit_folium
 geopy
 streamlit_option_menu
+numpy
