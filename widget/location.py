@@ -113,7 +113,6 @@ def get_recommend():
 
 
 
-
 def add_cluster_marker(m):
     cluster = MarkerCluster().add_to(m)
     data = place.get_place()
