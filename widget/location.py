@@ -18,11 +18,12 @@ def map():
         }, axis=1).iloc[:,0:3]
     m = folium.Map(
         location=center,
-        min_zoom=15,
+        min_zoom=16,
         max_zoom=30,
-        zoom_start=15,
+        zoom_start=16,
         zoom_control=True,
     )
+
     add_center_marker(m)
     add_cluster_marker(m)
     st_folium(m, width=800, height=400)
