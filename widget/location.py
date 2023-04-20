@@ -37,7 +37,7 @@ def map():
         st.button(
             "😉 메뉴 추천 받기",
             on_click=get_recommend)
-    st.subheader("🍜 외대앞역의 맛집 List")
+    st.subheader("🍜 외대앞역 맛집 List")
 
     ds = data.copy()
     ds.index = range(1, len(data) + 1)
@@ -61,35 +61,71 @@ def add_center_marker(m):
         tooltip="우하하. 재개발 다 되면 여기 내집 예정ㅋ"
     ).add_to(m)
 
+
 def get_recommend():
-    if 'center' not in st.session_state:
-        center = (37.566345, 126.977893) # 초기 center 위치
-        st.session_state['center'] = center
+    if 'location' not in st.session_state: # 가게 위치가 없으면 초기 center 위치를 사용
+        center = (37.566345, 126.977893)
+        st.session_state['location'] = center
     else:
         center = st.session_state['location']
+    
     p = place.get_place()
     idx = np.random.randint(len(p))
     item = p.iloc[idx]
-    st.session_state['store'] = item['name']
-    st.session_state['location'] = (item.lat, item.long)
-    center = st.session_state['location'] # Update the center variable
+    st.session_state['store_name'] = item['name']
+    location = (item.lat, item.long)
+    st.session_state['location'] = location
+    
     m = folium.Map(
-        location=st.session_state['location'],
+        location=center,
         min_zoom=16,
         max_zoom=30,
         zoom_start=16,
         zoom_control=True,
     )
     folium.Marker(
-        st.session_state['location'],
+        store_location,
         icon=folium.Icon(
             icon='cutlery',
             color='orange'
         ),
-        popup=st.session_state['store']
+        popup=item['name']
     ).add_to(m)
-    m.fit_bounds([center, st.session_state['location']])
+    
+    m.fit_bounds([center, store_location])
     st_folium(m, width=800, height=500)
+
+
+
+# def get_recommend():
+#     if 'center' not in st.session_state:
+#         center = (37.566345, 126.977893) # 초기 center 위치
+#         st.session_state['center'] = center
+#     else:
+#         center = st.session_state['location']
+#     p = place.get_place()
+#     idx = np.random.randint(len(p))
+#     item = p.iloc[idx]
+#     st.session_state['store'] = item['name']
+#     st.session_state['location'] = (item.lat, item.long)
+#     center = st.session_state['location'] # Update the center variable
+#     m = folium.Map(
+#         location=st.session_state['location'],
+#         min_zoom=16,
+#         max_zoom=30,
+#         zoom_start=16,
+#         zoom_control=True,
+#     )
+#     folium.Marker(
+#         st.session_state['location'],
+#         icon=folium.Icon(
+#             icon='cutlery',
+#             color='orange'
+#         ),
+#         popup=st.session_state['store']
+#     ).add_to(m)
+#     m.fit_bounds([center, st.session_state['location']])
+#     st_folium(m, width=800, height=500)
 
 
 
