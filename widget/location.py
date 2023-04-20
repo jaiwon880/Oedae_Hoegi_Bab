@@ -8,7 +8,7 @@ from data import place
 
 center = (37.6001,127.0602)
 
-def map(center):
+def map(center=(37.6001, 127.0602)):
     p = place.get_place(st.session_state.get('store',''))
     data = p.rename({
             "name": "식당명",
@@ -71,7 +71,8 @@ def get_recommend():
     idx = np.random.randint(len(p))
     item = p.iloc[idx]
     st.session_state['store'] = item['name']
-    center = (item.lat, item.long)
+    st.session_state['location'] = (item.lat, item.long)
+    center = st.session_state['location'] # Update the center variable
     m = folium.Map(
         location=center,
         min_zoom=16,
