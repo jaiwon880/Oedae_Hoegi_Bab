@@ -8,6 +8,26 @@ from data import place
 
 center = (37.6001,127.0602)
 
+
+def create_map(location=None):
+    m = folium.Map(
+        location=center,
+        min_zoom=16,
+        max_zoom=30,
+        zoom_start=16,
+        zoom_control=True,
+    )
+
+    add_center_marker(m)
+    add_cluster_marker(m)
+    
+    if location is not None:
+        add_location_marker(m, location)
+        m.fit_bounds([center, location])
+    
+    st_folium(m, width=800, height=400)
+
+
 def map():
     p = place.get_place(st.session_state.get('store',''))
     data = p.rename({
@@ -26,7 +46,9 @@ def map():
 
     add_center_marker(m)
     add_cluster_marker(m)
+
     st_folium(m, width=800, height=400)
+
     if 'location' in st.session_state:
         st.write(f"오늘은 **{st.session_state['store']}** 어떠세요?")
         st.button(
