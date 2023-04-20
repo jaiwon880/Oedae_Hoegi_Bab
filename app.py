@@ -26,7 +26,7 @@ def app():
     #### (회기 맛집리스트는 넘 많아서 추가중이애오)
     ---
     ''')
-    location.map(center)
+    location.map()
 
 
 if __name__ == '__main__':
