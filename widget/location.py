@@ -8,7 +8,7 @@ from data import place
 
 center = (37.6001,127.0602)
 
-def map(center=(37.6001, 127.0602)):
+def map():
     p = place.get_place(st.session_state.get('store',''))
     data = p.rename({
             "name": "식당명",
@@ -24,19 +24,19 @@ def map(center=(37.6001, 127.0602)):
         zoom_control=True,
     )
 
-    add_center_marker(m, center)
-    add_cluster_marker(m, center)
+    add_center_marker(m)
+    add_cluster_marker(m)
 
     st_folium(m, width=800, height=400)
 
     if 'location' in st.session_state:
         st.write(f"오늘은 **{st.session_state['store']}** 어떠세요?")
         st.button(
-            "😉 메뉴 다시 추천 받기", on_click=lambda: get_recommend(center))
+            "😉 메뉴 다시 추천 받기", on_click=get_recommend)
     else:
         st.button(
             "😉 메뉴 추천 받기",
-            on_click=lambda: get_recommend(center))
+            on_click=get_recommend)
     st.subheader("🍜 외대앞역의 맛집 List")
 
     ds = data.copy()
@@ -46,9 +46,8 @@ def map(center=(37.6001, 127.0602)):
         height=300,
         use_container_width=True
     )
-    
 
-def add_center_marker(m, center):
+def add_center_marker(m):
     folium.Marker(
         center,
         icon=folium.Icon(
@@ -62,7 +61,12 @@ def add_center_marker(m, center):
         tooltip="우하하. 재개발 다 되면 여기 내집 예정ㅋ"
     ).add_to(m)
 
-def get_recommend(center):
+def get_recommend():
+    if 'center' not in st.session_state:
+        center = (37.566345, 126.977893) # 초기 center 위치
+        st.session_state['center'] = center
+    else:
+        center = st.session_state['location']
     p = place.get_place()
     idx = np.random.randint(len(p))
     item = p.iloc[idx]
@@ -77,16 +81,16 @@ def get_recommend(center):
         zoom_control=True,
     )
     folium.Marker(
-        center,
+        st.session_state['location'],
         icon=folium.Icon(
             icon='cutlery',
             color='orange'
         ),
         popup=st.session_state['store']
     ).add_to(m)
-    m.fit_bounds([st.session_state['center'], center])
+    m.fit_bounds([center, st.session_state['location']])
     st_folium(m, width=800, height=400)
-    st.session_state['center'] = center
+
 
 
 def add_cluster_marker(m):
