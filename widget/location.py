@@ -4,10 +4,9 @@ import folium
 from folium.plugins import MarkerCluster
 from geopy import distance
 import numpy as np
-
 from data import place
 
-center = (37.4682,126.8860)
+center = (37.6001,127.0602)
 
 def map():
     p = place.get_place(st.session_state.get('store',''))
@@ -35,7 +34,8 @@ def map():
         st.button(
             "😉 메뉴 추천 받기",
             on_click=get_recommend)
-    st.subheader("🏬 다른 식당들...?")
+    st.subheader("🍜 다른 식당들...?")
+
     ds = data.copy()
     ds.index = range(1, len(data) + 1)
     st.dataframe(
@@ -52,10 +52,10 @@ def add_center_marker(m):
             color='red'
         ),
         popup=folium.Popup(
-            html="독산의 코딩 맛집",
+            html="외대/회기",
             max_width=200,
         ),
-        tooltip="플레이데이터 G밸리캠퍼스"
+        tooltip="우하하. 내 집은 비밀이얌"
     ).add_to(m)
 
 def get_recommend():
