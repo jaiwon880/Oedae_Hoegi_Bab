@@ -112,21 +112,21 @@ def add_cluster_marker(m):
             tooltip=row['name']
         ).add_to(cluster)
 
-def move_to_location():
-    location = st.session_state.get('location')
-    if location is not None:
-        m = folium.Map(
-            location=location,
-            min_zoom=16,
-            max_zoom=30,
-            zoom_start=16,
-            zoom_control=True,
-        )
-        add_center_marker(m)
-        add_cluster_marker(m)
-        st_folium(m, width=800, height=400)
-    else:
-        st.warning("가게 추천을 받아주세요!")
+# def move_to_location():
+#     location = st.session_state.get('location')
+#     if location is not None:
+#         m = folium.Map(
+#             location=location,
+#             min_zoom=16,
+#             max_zoom=30,
+#             zoom_start=16,
+#             zoom_control=True,
+#         )
+#         add_center_marker(m)
+#         add_cluster_marker(m)
+#         st_folium(m, width=800, height=400)
+#     else:
+#         st.warning("가게 추천을 받아주세요!")
 
-if st.button("🗺️ 이 가게 위치 보기"):
-    move_to_location()
+# if st.button("🗺️ 이 가게 위치 보기"):
+#     move_to_location()
