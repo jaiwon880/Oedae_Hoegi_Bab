@@ -34,7 +34,7 @@ def map():
         st.button(
             "😉 메뉴 추천 받기",
             on_click=get_recommend)
-    st.subheader("🍜 다른 식당들...?")
+    st.subheader("🍜 외대앞역의 맛집 List")
 
     ds = data.copy()
     ds.index = range(1, len(data) + 1)
@@ -55,7 +55,7 @@ def add_center_marker(m):
             html="외대/회기",
             max_width=200,
         ),
-        tooltip="우하하. 내 집은 비밀이얌"
+        tooltip="우하하. 재개발 다 되면 여기 내집 예정ㅋ"
     ).add_to(m)
 
 def get_recommend():
