@@ -17,19 +17,16 @@ def app():
     location.map()
 
 
-def side_bar():
-
-    with st.sidebar:
-        choice = option_menu("Menu", ["홈", "검색", "후기"],
-                         icons=['house', 'house', 'house'],
-                         menu_icon="app-indicator", default_index=0,
-                         styles={
-        "container": {"padding": "4!important", "background-color": "#FAFAFA"},
-        "icon": {"color": "black", "font-size": "25px"},
-        "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#FAFAFA"},
-        "nav-link-selected": {"background-color": "#08C7B4"},
-    })
+with st.sidebar:
+    choice = option_menu("Menu", ["홈", "검색", "후기"],
+                        icons=['house', 'house', 'house'],
+                        menu_icon="app-indicator", default_index=0,
+                        styles={
+    "container": {"padding": "4!important", "background-color": "#FAFAFA"},
+    "icon": {"color": "black", "font-size": "25px"},
+    "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#FAFAFA"},
+    "nav-link-selected": {"background-color": "#08C7B4"},
+})
 
 if __name__ == '__main__':
     app()
-    side_bar()
