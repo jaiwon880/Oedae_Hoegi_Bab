@@ -89,7 +89,7 @@ def get_recommend():
         popup=st.session_state['store']
     ).add_to(m)
     m.fit_bounds([center, st.session_state['location']])
-    st_folium(m, width=800, height=400)
+    st_folium(m, width=800, height=500)
 
 
 
