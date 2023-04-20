@@ -75,7 +75,7 @@ def add_center_marker(m):
             color='red'
         ),
         popup=folium.Popup(
-            html="외대/회기",
+            html="재원이의 스윗홈🍭",
             max_width=200,
         ),
         tooltip="우하하. 재개발 다 되면 여기 내집 예정ㅋ"
