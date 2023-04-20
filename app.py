@@ -1,6 +1,6 @@
 import streamlit as st
-from widget import location
 from streamlit_option_menu import option_menu
+from widget import location
 
 
 def side_bar():
