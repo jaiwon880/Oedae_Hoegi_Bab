@@ -72,9 +72,8 @@ def get_recommend():
     p = place.get_place()
     idx = np.random.randint(len(p))
     item = p.iloc[idx]
-    st.session_state['store_name'] = item['name']
+    st.session_state['location'] = item['name']
     location = (item.lat, item.long)
-    st.session_state['location'] = location
     
     m = folium.Map(
         location=center,
@@ -94,6 +93,8 @@ def get_recommend():
     
     m.fit_bounds([center, location])
     st_folium(m, width=800, height=500)
+    st.session_state['location'] = location # 가게 위치를 session state에 저장
+
 
 
 
