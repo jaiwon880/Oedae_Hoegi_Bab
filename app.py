@@ -6,7 +6,7 @@ from widget import location
 def side_bar():
     with st.sidebar:
         choice = option_menu("Menu", ["홈", "검색", "후기"],
-                            icons=['house', 'house', 'house'],
+                            icons=['house', 'search', 'pencil-square'],
                             menu_icon="app-indicator", default_index=0,
                             styles={
         "container": {"padding": "4!important", "background-color": "#FAFAFA"},
