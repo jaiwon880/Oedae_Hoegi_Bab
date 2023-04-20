@@ -18,9 +18,9 @@ def map():
         }, axis=1).iloc[:,0:3]
     m = folium.Map(
         location=center,
-        min_zoom=10,
+        min_zoom=15,
         max_zoom=30,
-        zoom_start=10,
+        zoom_start=15,
         zoom_control=True,
     )
     add_center_marker(m)
