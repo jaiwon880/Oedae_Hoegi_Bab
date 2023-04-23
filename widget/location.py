@@ -99,7 +99,7 @@ def add_cluster_marker(m):
     data = place.get_place()
     for i in range(len(data)):
         row = data.iloc[i]
-        dist = round(distance.geodesic(center, (row.lat, row.long)).meters * 100) / 100
+        dist = round(distance.geodesic(st.session_state['location'], (row.lat, row.long)).meters * 100) / 100
         html = f'''
                 <p><b>주소</b> : {row.address}</p>
                 <p><b>직경거리</b> : {dist}m</p>
