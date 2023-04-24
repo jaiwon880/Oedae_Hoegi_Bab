@@ -62,67 +62,67 @@ def add_center_marker(m):
     ).add_to(m)
 
 
-def get_recommend():
-    p = place.get_place()
-    idx = np.random.randint(len(p))
-    item = p.iloc[idx]
-    st.session_state['store'] = item['name']
-    location = (item.lat, item.long)
-    st.session_state['location'] = location
-    center = location
-    m = folium.Map(
-        location=location,
-        min_zoom=16,
-        max_zoom=30,
-        zoom_start=16,
-        zoom_control=True,
-    )
-    folium.Marker(
-        location,
-        icon=folium.Icon(
-            icon='cutlery',
-            color='orange'
-        ),
-        popup=item['name']
-    ).add_to(m)
-    add_cluster_marker(m)
-    m.fit_bounds([center, location])
-    st_folium(m, width=800, height=500)
-    st.write(f"오늘은 **{item['name']}** 어떠세요?")
-    st.button(
-        "😉 메뉴 다시 추천 받기", on_click=get_recommend)
-
-
-
 # def get_recommend():
-#     if 'center' not in st.session_state:
-#         center = (37.566345, 126.977893) # 초기 center 위치
-#         st.session_state['center'] = center
-#     else:
-#         center = st.session_state['location']
 #     p = place.get_place()
 #     idx = np.random.randint(len(p))
 #     item = p.iloc[idx]
 #     st.session_state['store'] = item['name']
-#     st.session_state['location'] = (item.lat, item.long)
-#     center = st.session_state['location'] # Update the center variable
+#     location = (item.lat, item.long)
+#     st.session_state['location'] = location
+#     center = location
 #     m = folium.Map(
-#         location=st.session_state['location'],
+#         location=location,
 #         min_zoom=16,
 #         max_zoom=30,
 #         zoom_start=16,
 #         zoom_control=True,
 #     )
 #     folium.Marker(
-#         st.session_state['location'],
+#         location,
 #         icon=folium.Icon(
 #             icon='cutlery',
 #             color='orange'
 #         ),
-#         popup=st.session_state['store']
+#         popup=item['name']
 #     ).add_to(m)
-#     m.fit_bounds([st.session_state['location'], st.session_state['location']])
+#     add_cluster_marker(m)
+#     m.fit_bounds([center, location])
 #     st_folium(m, width=800, height=500)
+#     st.write(f"오늘은 **{item['name']}** 어떠세요?")
+#     st.button(
+#         "😉 메뉴 다시 추천 받기", on_click=get_recommend)
+
+
+
+def get_recommend():
+    if 'center' not in st.session_state:
+        center = (37.566345, 126.977893) # 초기 center 위치
+        st.session_state['center'] = center
+    else:
+        center = st.session_state['location']
+    p = place.get_place()
+    idx = np.random.randint(len(p))
+    item = p.iloc[idx]
+    st.session_state['store'] = item['name']
+    st.session_state['location'] = (item.lat, item.long)
+    center = st.session_state['location'] # Update the center variable
+    m = folium.Map(
+        location=st.session_state['location'],
+        min_zoom=16,
+        max_zoom=30,
+        zoom_start=16,
+        zoom_control=True,
+    )
+    folium.Marker(
+        st.session_state['location'],
+        icon=folium.Icon(
+            icon='cutlery',
+            color='orange'
+        ),
+        popup=st.session_state['store']
+    ).add_to(m)
+    m.fit_bounds([st.session_state['location'], st.session_state['location']])
+    st_folium(m, width=800, height=500)
 
 
 
