@@ -20,7 +20,7 @@
 
 ### 🛠️ Technology Stack
 
-BackEnd: Python
-Tools & Community: GitHub, Colab
-Work: ChatGPT
-
+#### BackEnd: Python
+#### Tools & Community: GitHub, Colab
+#### Work: ChatGPT
+#### Etc: folium, geopy
